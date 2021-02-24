@@ -4,7 +4,7 @@ let isJumping = false;
 let position = 0;
 
 
-const handleKeyUp = event => {
+const handleDown = event => {
     if (event.keyCode === 32) {
         if (!isJumping) {
             jump();
@@ -17,7 +17,7 @@ const jump = () => {
 
     let upInterval = setInterval(() => {
 
-        if (position >= 150) {
+        if (position >= 200) {
             clearInterval(upInterval);
             //descendo
             let downInterval = setInterval(() => {
@@ -55,15 +55,24 @@ const createCactus = () => {
         } else if (cactusPosition > 0 && cactusPosition < 60 && position < 60) {
             //Game Over
             clearInterval(leftInterval);
-            document.body.innerHTML = '<h1 class="game-over"> Fim de Jogo </h1>';
+            document.body.innerHTML =
+                "<div class= 'container'>" +
+                "<div>" +
+                "<img src='https://thumbs.gfycat.com/ShowyWaterloggedBichonfrise-small.gif' alt='game over'" +
+                "</div>" +
+                "<div class ='button-start'>" +
+                "<button onclick='window.location.reload()'>Jogar Novamente</button>" +
+                "</div>" +
+                "</div>"
+                ;
+
         } else {
             cactusPosition -= 10;
             cactus.style.left = cactusPosition + 'px';
         }
-
     }, 20);
 
     setTimeout(createCactus, randomTime);
 }
 createCactus();
-document.addEventListener('keyup', handleKeyUp);
+document.addEventListener('keydown', handleDown);
